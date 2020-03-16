@@ -12,13 +12,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //
 @Configuration
-@EnableSwagger2
+@EnableSwagger2//开启swagger
+/**
+ * 使用swagger生成所有的借口文档      localhost:端口/swagger-ui.html
+ */
 public class Swagger2Configuration {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
+                //扫描restController下的所有的借口
                 .apis(RequestHandlerSelectors.basePackage("com.xuecheng"))
                 .paths(PathSelectors.any())
                 .build();

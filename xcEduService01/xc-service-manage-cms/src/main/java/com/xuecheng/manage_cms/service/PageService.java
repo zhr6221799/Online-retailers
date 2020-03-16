@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PageService {
 
+    //调用CmsPage Dao接口
     @Autowired
     CmsPageRepository cmsPageRepository;
 
@@ -37,15 +38,19 @@ public class PageService {
         if(page <=0){
             page = 1;
         }
+        //因为用户习惯是第1页开始，但是dao层第一页是从0开始，所以-1穿给dao
         page = page -1;
         if(size<=0){
-            size = 10;
+            size = 10;//默认显示10条数据
         }
+        //分页查询条件(页码，每页显示的条数)
         Pageable pageable = PageRequest.of(page,size);
         Page<CmsPage> all = cmsPageRepository.findAll(pageable);
+        //定义queryResult
         QueryResult queryResult = new QueryResult();
         queryResult.setList(all.getContent());//数据列表
         queryResult.setTotal(all.getTotalElements());//数据总记录数
+        //定义方法返回的queryResponseResult
         QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
         return queryResponseResult;
     }

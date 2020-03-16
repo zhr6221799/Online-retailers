@@ -24,15 +24,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/cms/page")
 public class CmsPageController implements CmsPageControllerApi {
-
+    /**
+     * 注入pageService
+     */
     @Autowired
     PageService pageService;
 
     @Override
     @GetMapping("/list/{page}/{size}")
-    public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size")int size, QueryPageRequest queryPageRequest) {
+    public QueryResponseResult findList(@PathVariable("page") int page, @PathVariable("size") int size, QueryPageRequest queryPageRequest) {
 
-        //暂时用静态数据
+/*        //暂时用静态数据
         //定义queryResult
         QueryResult<CmsPage> queryResult =new QueryResult<>();
         List<CmsPage> list = new ArrayList<>();
@@ -48,8 +50,9 @@ public class CmsPageController implements CmsPageControllerApi {
         queryResult.setTotal(6);
 
         QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
-        return queryResponseResult;
-        //调用service
-       // return pageService.findList(page,size,queryPageRequest);
+        return queryResponseResult;*/
+
+            //调用service
+        return pageService.findList(page, size, queryPageRequest);
     }
 }
